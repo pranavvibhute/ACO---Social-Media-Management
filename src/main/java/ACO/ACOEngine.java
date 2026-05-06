@@ -1,11 +1,9 @@
 package ACO;
 
-import Models.*;
-import Simulation.EngagementSimulator;
-
 import java.util.*;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import Models.*;
+import Simulation.*;
 
 public class ACOEngine {
 
@@ -14,24 +12,28 @@ public class ACOEngine {
 
     private double[][] pheromone;
 
-    private int numAnts = 20;
-    private int numIterations = 200;
+    private int numAnts;
+    private int numIterations;
 
-    // Custom interface for dual-line updates
+    // Custom interface for UI updates
     @FunctionalInterface
-    public interface FitnessCallback {
-        void update(int iteration, double best, double avg);
+    public interface UIGraphCallback {
+        void update(int iteration, double best, double avg, double[][] pheromones);
     }
 
-    private double alpha = 1.0;
-    private double beta = 1.5;
+    private double alpha;
+    private double beta;
     private double evaporationRate = 0.1;
 
     private Random random = new Random();
 
-    public ACOEngine(List<Post> posts, List<TimeSlot> slots) {
+    public ACOEngine(List<Post> posts, List<TimeSlot> slots, int numAnts, double alpha, double beta, int numIterations) {
         this.posts = posts;
         this.slots = slots;
+        this.numAnts = numAnts;
+        this.alpha = alpha;
+        this.beta = beta;
+        this.numIterations = numIterations;
 
         pheromone = new double[posts.size()][slots.size()];
 
@@ -118,7 +120,7 @@ public class ACOEngine {
         System.out.println("=================================");
     }
 
-    public Schedule runUI(FitnessCallback onIterUpdate, Consumer<String> onLog) {
+    public Schedule runUI(UIGraphCallback onIterUpdate, Consumer<String> onLog) {
         Schedule bestSchedule = null;
         double bestFitness = Double.MIN_VALUE;
 
@@ -165,10 +167,10 @@ public class ACOEngine {
             double displayedBest = bestFitness + (Math.sin(iter * 0.5) * 0.8);
             double displayedAvg = avgFitness + (Math.cos(iter * 0.5) * 0.5);
             
-            if(onIterUpdate != null) onIterUpdate.update(iter, displayedBest, displayedAvg);
+            if(onIterUpdate != null) onIterUpdate.update(iter + 1, displayedBest, displayedAvg, pheromone);
             
             if(onLog != null && iter % 10 == 0) {
-                onLog.accept(String.format("Iteration %03d | Best: %.1f | Avg: %.1f", iter, displayedBest, displayedAvg));
+                onLog.accept(String.format("Iteration %03d | Best: %.1f | Avg: %.1f", iter + 1, displayedBest, displayedAvg));
                 if (iter % 50 == 0 && bestSchedule != null) {
                     onLog.accept("[DEBUG] Current Optimal Layout Found.");
                 }
@@ -243,9 +245,9 @@ public class ACOEngine {
 
             double fitness = schedule.getFitness();
 
-            for (Post post : schedule.getAssignment().keySet()) {
+            for (Post post : schedule.getAssignments().keySet()) {
                 int i = posts.indexOf(post);
-                int j = slots.indexOf(schedule.getAssignment().get(post));
+                int j = slots.indexOf(schedule.getAssignments().get(post));
 
                 pheromone[i][j] += fitness / 100.0; // scaling
             }

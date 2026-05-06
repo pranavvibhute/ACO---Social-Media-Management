@@ -33,12 +33,15 @@ d:\TY-Study\DAA\CP\Project\
 ### Component Details
 1. **`AppUI.java` (Frontend)**
    - Acts as the main entry point for the application.
-   - Renders a visually rich dashboard using JavaFX and `style.css`.
-   - Features a real-time `LineChart` tracking the "Best Engagement" vs. "Average Engagement".
-   - Handles the multithreading to ensure the ACO engine runs in the background without freezing the UI thread, utilizing `Platform.runLater()` for UI updates.
+   - Implements a modern **TabPane Architecture** to organize data efficiently:
+     - **Tab 1 (Live Analytics):** Real-time `LineChart` and execution logs.
+     - **Tab 2 (Configuration):** User-adjustable inputs (Ants, Alpha, Beta, Iterations) and cleanly separated panels for Post and Time Slot data.
+     - **Tab 3 (Results & Matrix):** Final optimized schedule table and the resulting Pheromone matrix.
+   - Uses `style.css` for a premium **Glassmorphism Dark Theme**, featuring custom pill-shaped tabs and glowing neon accents.
+   - Handles multithreading to ensure the ACO engine runs in the background without freezing the UI thread, utilizing `Platform.runLater()` for UI updates.
 
 2. **`ACOEngine.java` (Algorithm)**
-   - Implements the ACO logic with `numAnts = 20` and `numIterations = 200`.
+   - Implements the ACO logic dynamically based on user-provided control panel inputs (`numAnts`, `alpha`, `beta`, `numIterations`).
    - Manages the **Pheromone Matrix** (Posts x TimeSlots).
    - **Exploration & Convergence:** Ants construct solutions probabilistically based on pheromone trails and heuristic desirability.
    - **Environment Shifts:** Simulates algorithm adaptability by triggering trend shifts at specific iterations (e.g., iteration 50 and 120).
@@ -91,7 +94,7 @@ Since this project utilizes Maven and the `javafx-maven-plugin`, executing the a
 1. **Java Development Kit (JDK) 17** or higher installed.
 2. **Apache Maven** installed and added to your system's PATH.
 
-### Steps to Run
+### Usage Instructions
 1. Open your terminal (or PowerShell).
 2. Navigate to the project root directory:
    ```bash
@@ -101,7 +104,10 @@ Since this project utilizes Maven and the `javafx-maven-plugin`, executing the a
    ```bash
    mvn clean javafx:run
    ```
-   *Note: This command automatically compiles the code and launches the `AppUI` main class defined in the `pom.xml`.*
+4. **Configure Parameters:** Upon launch, navigate to the **"Configuration ⚙️"** tab. Adjust the `Ants`, `Alpha`, `Beta`, and `Iterations` directly from the interface.
+5. **Start Simulation:** Click the pulsing **"Run ACO 🔄"** button on the top header.
+6. **Monitor:** Switch to the **"Live Analytics 📈"** tab to watch the algorithm converge in real-time.
+7. **View Results:** Once the run completes, check the **"Results & Matrix 🏆"** tab for the final recommended social media schedule.
 
 > [!TIP]
-> **Performance Optimization:** If you want to modify the algorithm's behavior, adjust the `alpha` (pheromone importance), `beta` (heuristic importance), or `evaporationRate` variables located inside `src/main/java/ACO/ACOEngine.java`.
+> **Performance Optimization:** Because parameters are exposed in the UI, you can easily experiment with different values. Increasing `Ants` helps find better solutions but takes longer, while tweaking `Alpha` and `Beta` shifts the algorithm's reliance between past successful trails and immediate heuristic desirability!

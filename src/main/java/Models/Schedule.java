@@ -17,7 +17,7 @@ public class Schedule {
         assignment.put(post, slot);
     }
 
-    public Map<Post, TimeSlot> getAssignment() {
+    public Map<Post, TimeSlot> getAssignments() {
         return assignment;
     }
 

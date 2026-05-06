@@ -61,6 +61,14 @@
     -fx-padding: 10;
 }
 
+.chart-legend {
+    -fx-background-color: transparent;
+}
+
+.chart-legend-item {
+    -fx-text-fill: #e2e8f0;
+}
+
 .chart-plot-background {
     -fx-background-color: transparent;
 }
@@ -97,4 +105,129 @@
 .default-color1.chart-line-symbol {
     -fx-background-color: rgba(34, 211, 238, 0.3), transparent;
     -fx-padding: 2px;
+}
+
+/* --- TAB PANE STYLING --- */
+.tab-pane {
+    -fx-background-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+.tab-pane .tab-header-area {
+    -fx-padding: 0 0 10 0;
+    -fx-background-color: transparent;
+}
+.tab-pane .tab-header-background {
+    -fx-background-color: transparent;
+}
+.tab {
+    -fx-background-color: rgba(30, 41, 59, 0.6);
+    -fx-background-radius: 20;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+    -fx-border-color: rgba(255,255,255,0.08);
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-background-insets: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+.tab:selected {
+    -fx-background-color: #0f172a;
+    -fx-border-color: #22d3ee;
+    -fx-border-width: 1;
+}
+.tab:hover {
+    -fx-background-color: rgba(51, 65, 85, 0.8);
+}
+.tab .tab-label {
+    -fx-text-fill: #94a3b8;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+.tab:selected .tab-label {
+    -fx-text-fill: #e2e8f0;
+}
+
+/* --- TITLED PANE STYLING --- */
+.titled-pane {
+    -fx-text-fill: #e2e8f0;
+}
+.titled-pane > .title {
+    -fx-background-color: rgba(30, 41, 59, 0.8);
+    -fx-background-radius: 10 10 0 0;
+    -fx-border-color: rgba(255,255,255,0.08);
+    -fx-border-radius: 10 10 0 0;
+    -fx-padding: 10;
+}
+.titled-pane > .title > .text {
+    -fx-fill: #e2e8f0;
+    -fx-font-weight: bold;
+}
+.titled-pane > .content {
+    -fx-background-color: rgba(15, 23, 42, 0.4);
+    -fx-border-color: rgba(255,255,255,0.08);
+    -fx-border-width: 0 1 1 1;
+    -fx-border-radius: 0 0 10 10;
+}
+
+/* --- TABLE VIEW STYLING --- */
+.table-view {
+    -fx-background-color: rgba(30, 41, 59, 0.6);
+    -fx-border-color: rgba(255,255,255,0.08);
+    -fx-border-radius: 10;
+    -fx-control-inner-background: transparent;
+    -fx-padding: 5;
+}
+.table-view .column-header-background {
+    -fx-background-color: rgba(15, 23, 42, 0.8);
+    -fx-background-radius: 10 10 0 0;
+}
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(255,255,255,0.05);
+    -fx-border-width: 0 1 1 0;
+}
+.table-view .column-header .label {
+    -fx-text-fill: #e2e8f0;
+    -fx-font-weight: bold;
+    -fx-padding: 10;
+}
+.table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(255,255,255,0.05);
+    -fx-border-width: 0 0 1 0;
+}
+.table-row-cell:odd {
+    -fx-background-color: rgba(255, 255, 255, 0.02);
+}
+.table-row-cell:selected {
+    -fx-background-color: rgba(34, 211, 238, 0.2);
+}
+.table-row-cell .text {
+    -fx-fill: #94a3b8;
+}
+.table-row-cell:selected .text {
+    -fx-fill: #e2e8f0;
+}
+
+/* --- TEXT FIELDS & LABELS --- */
+.text-field {
+    -fx-background-color: #020617;
+    -fx-text-fill: #e2e8f0;
+    -fx-border-color: rgba(255,255,255,0.1);
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 8;
+}
+.text-field:focused {
+    -fx-border-color: #22d3ee;
+}
+.label {
+    -fx-text-fill: #e2e8f0;
+}
+.label-metric {
+    -fx-text-fill: #fcd34d;
+    -fx-font-size: 14px;
+    -fx-font-family: "Consolas", monospace;
 }

@@ -34,7 +34,7 @@ public class Main {
         randomSchedule.printSchedule();
 
         System.out.println("\n--- Running ACO ---");
-        ACOEngine engine = new ACOEngine(posts, slots);
+        ACOEngine engine = new ACOEngine(posts, slots, 10, 1.0, 2.0, 100);
         Schedule best = engine.run();
 
         System.out.println("\nFinal Best Schedule:");
